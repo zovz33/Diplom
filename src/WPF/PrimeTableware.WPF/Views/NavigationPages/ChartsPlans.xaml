@@ -1,0 +1,35 @@
+﻿<Page x:Class="PrimeTableware.WPF.Views.NavigationPages.ChartsPlans"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:local="clr-namespace:PrimeTableware.WPF.Views.NavigationPages" xmlns:UserControl="clr-namespace:PrimeTableware.WPF.CustomControls"
+      mc:Ignorable="d" 
+        d:DesignHeight="800" d:DesignWidth="1500"
+      Background="Transparent"
+      Title="Графики и планы">
+
+    <Grid x:Name="FirstGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"  x:Name="NavigationHorizontalBar" Background="{StaticResource NavigationBackground}" MinWidth="1500" MaxWidth="2000" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal"   HorizontalAlignment="Left" VerticalAlignment="Center">
+ 
+                <UserControl:NavigationButton Text="Продажи" Icon="Finance" GroupName="Nav2" Width="140"  Margin="30 0 0 0"/>
+                <UserControl:NavigationButton Text="Товары" Icon="Finance" GroupName="Nav2" Width="140"/>
+                <UserControl:NavigationButton Text="План закупок" Icon="Cash" GroupName="Nav2" Width="160"/>
+                <UserControl:NavigationButton Text="Товары" Icon="Finance" GroupName="Nav2" Width="140"/>
+           
+            </StackPanel>
+            <Rectangle Fill="{DynamicResource NavigationBackground}" VerticalAlignment="Bottom" Height="1" MinWidth="1500" MaxWidth="2000"/>
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="MainGrid">
+
+            <TextBlock Text="Grafiki" FontSize="50" Width="200" Height="50" Foreground="White"  />
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,139 @@
+﻿<Page x:Class="PrimeTableware.WPF.Views.NavigationPages.Data"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:local="clr-namespace:PrimeTableware.WPF.Views.NavigationPages"
+      xmlns:viewModels="clr-namespace:PrimeTableware.WPF.ViewModels" xmlns:UserControl="clr-namespace:PrimeTableware.WPF.CustomControls"
+      mc:Ignorable="d" 
+        d:DesignHeight="800" d:DesignWidth="1500"
+      Background="Transparent"
+      Title="Данные">
+    <Page.DataContext>
+        <viewModels:DataManageViewModel/>
+    </Page.DataContext>
+    <Page.Resources>
+        <!-- Определение стиля для выбранного элемента TabItem -->
+        <Style   TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid>
+                            <Border x:Name="Border" Background="Transparent"
+                                    BorderBrush="Transparent" BorderThickness="0"
+                                    Margin="0,0,0,0">
+                                <ContentPresenter x:Name="ContentSite"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ContentSource="Header"
+                                                  Margin="0,0,0,0"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid x:Name="FirstGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="1" Background="{DynamicResource NavigationBackground}" MinWidth="1500" MaxWidth="2000" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Rectangle Fill="{DynamicResource NavigationBackground}" VerticalAlignment="Bottom" Height="1" MinWidth="1500" MaxWidth="2000"/>
+        </Border>
+        <TabControl Margin="0"  Grid.Row="1" Background="Transparent" BorderThickness="0">
+            <TabItem Name="UsersTab" Background="Transparent" >
+                <TabItem.Header>
+                    <UserControl:NavigationButton Text="Сотрудники" Icon="BadgeAccountHorizontal" Margin="30 0 0 0" Width="140" GroupName="Data"/>
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редактировать" Command="{Binding OpenEditItemWnd}"/>
+                        <MenuItem Header="Удалить" Command="{Binding DeleteItem}"/>
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView x:Name="ViewAllUsers" ItemsSource="{Binding Users}" MouseDoubleClick="ViewAllUsers_MouseDoubleClick"  >
+                    
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Path=Name}"/>
+                            <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding Path=Surname}"/>
+                            <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding Path=FName}"/>
+                            <GridViewColumn Header="Почта" DisplayMemberBinding="{Binding Path=Mail}"/>
+                            <GridViewColumn Header="Мобильный телефон" DisplayMemberBinding="{Binding Path=MobilePhone}"/>
+                            <GridViewColumn Header="Адресс" DisplayMemberBinding="{Binding Path=Adress}"/>
+                            <GridViewColumn Header="Зарплата" DisplayMemberBinding="{Binding Path=Salary}"/>
+                            <GridViewColumn Header="Должность" DisplayMemberBinding="{Binding Path=Position}"/>
+                            <GridViewColumn Header="Отдел" DisplayMemberBinding="{Binding Path=NameDepartment}"/>
+                            <GridViewColumn Header="Дата начала работы" DisplayMemberBinding="{Binding Path=DateStarted}"/>
+                            <GridViewColumn Header="Дата увольнения" DisplayMemberBinding="{Binding Path=DateTerminated}"/>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+            <TabItem Name="PositionsTab" Background="Transparent">
+                <TabItem.Header>
+                    <UserControl:NavigationButton Text="Должности" Icon="CardAccountDetailsStar" Width="140" GroupName="Data"/>
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редактировать" Command="{Binding OpenEditItemWnd}"/>
+                        <MenuItem Header="Удалить" Command="{Binding DeleteItem}"/>
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView x:Name="ViewAllPositions"    >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Название"
+                                            DisplayMemberBinding="{Binding Path=Name}"/>
+                            <GridViewColumn Header="Зарплата"
+                                            DisplayMemberBinding="{Binding Path=Salary}"/>
+                            <GridViewColumn Header="Людей на этой должности"
+                                            DisplayMemberBinding="{Binding Path=PositionEmployees.Count}"/>
+                            <GridViewColumn Header="Максимальное количество"
+                                            DisplayMemberBinding="{Binding Path=MaxNumber}"/>
+                            <GridViewColumn Header="Отдел"
+                                            DisplayMemberBinding="{Binding Path=PositionDepartment.Name}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+            <TabItem Name="DepartmentsTab" Background="Transparent">
+                <TabItem.Header>
+                    <UserControl:NavigationButton Text="Отделы" Icon="Briefcase" Width="140" GroupName="Data"/>
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редактировать" Command="{Binding OpenEditItemWnd}"/>
+                        <MenuItem Header="Удалить" Command="{Binding DeleteItem}"/>
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView x:Name="ViewAllDepartments">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Название" 
+                                            DisplayMemberBinding="{Binding Path=Name}"/>
+                            <GridViewColumn Header="Число должностей" 
+                                            DisplayMemberBinding="{Binding Path=DepartmentPositions.Count}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+        </TabControl>
+    
+ 
+    </Grid>
+</Page>

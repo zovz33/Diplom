@@ -1,0 +1,104 @@
+﻿<Page x:Class="PrimeTableware.WPF.Views.NavigationPages.PersonalAccount"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:uc="clr-namespace:PrimeTableware.WPF.CustomControls"
+      xmlns:local="clr-namespace:PrimeTableware.WPF.Views.NavigationPages"
+      xmlns:vm="clr-namespace:PrimeTableware.WPF.ViewModels"
+      mc:Ignorable="d" 
+        d:DesignHeight="800" d:DesignWidth="1500"
+      Background="Transparent"
+      Title="Личный Кабинет">
+    <Page.DataContext>
+        <vm:MainViewModel/>
+    </Page.DataContext>
+
+    <!--#region ALL PAGE LEVEL -->
+    <Grid x:Name="FirstLevelGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--#region LEVEL 1 (Top) -->
+        <Border Background="{StaticResource BackgroundCardBrush}" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="WhiteSmoke">
+            <Grid x:Name="HighestLevelGrid" Grid.Row="0" Width="auto" HorizontalAlignment="Left" Margin="100 0 0 0">
+                <Image Height="100" Width="100" Stretch="Fill" Margin="25 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                    <Image.Source>
+                        <Binding Path="CurrentUserAccount.ImageModel"/>
+                    </Image.Source>
+                </Image>
+                <StackPanel x:Name="InfoBlock" Orientation="Vertical" Margin="150 20 0 0" HorizontalAlignment="Left" Width="Auto" Height="Auto">
+                    <TextBlock Text="ЛИЧНЫЙ КАБИНЕТ" FontWeight="Bold" FontFamily="Franklin Gothic" FontSize="25" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="{Binding CurrentUserAccount.LoginModel}" FontFamily="Courier New" FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="{Binding CurrentUserAccount.UsernameSurnameModel}" FontFamily="Courier New" FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="{Binding CurrentUserAccount.UserRoleModel}" FontFamily="Courier New" FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="{Binding CurrentUserAccount.DateAddModel ,  StringFormat='{}Дата регистрации: {0:dd MMMM, yyyy}'}" FontFamily="Courier New" FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <!--#endregion LEVEL 1 (Top) -->
+
+        <Button x:Name="ExitButton" Content="{iconPacks:Material Kind=ExitToApp, Width=20, Height=20}" Style="{StaticResource AnimationButton}" VerticalAlignment="Top" Width="40" HorizontalAlignment="Right" Margin="0 10 10 0" Command="{Binding LogoutCommand}"/>
+        <TextBlock Text="{Binding CurrentUserAccount.ImageModel}" Foreground="{StaticResource TextColorBrush}" FontSize="18" FontFamily="Brutal Type" Height="20" Width="Auto" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,13,0,617" Grid.Row="1"/>
+        <!--#region LEVEL 2 -->
+        <Grid Grid.Row="1" Margin="20 50 20 20" Background="#1E1E1E">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="blockofinfo" Grid.Column="0" Grid.Row="0" Margin="10">
+                <Border Background="#2B2B2B" BorderThickness="0" CornerRadius="20" Height="auto" Width="Auto" />
+
+                <TextBlock Text="Личные данные" FontWeight="Bold" FontFamily="Franklin Gothic" FontSize="25" Height="Auto" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" Foreground="White" Margin="0 10 0 0"/>
+                <StackPanel Orientation="Horizontal"   Margin="0 50 0 20" HorizontalAlignment="Center" Width="Auto" Height="Auto">
+                <StackPanel x:Name="UserBlock" Orientation="Vertical">
+                <TextBlock Text="{Binding CurrentUserAccount.UserIDModel, ValidatesOnExceptions=True, StringFormat={}ID: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                <TextBlock Text="{Binding CurrentUserAccount.LoginModel, ValidatesOnExceptions=True, StringFormat={}Логин: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                <TextBlock Text="{Binding CurrentUserAccount.NameModel, ValidatesOnExceptions=True, StringFormat={}Имя: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                <TextBlock Text="{Binding CurrentUserAccount.SurnameModel, ValidatesOnExceptions=True, StringFormat={}Фамилия: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                <TextBlock Text="{Binding CurrentUserAccount.FNameModel, ValidatesOnExceptions=True, StringFormat={}Отчество: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                <TextBlock Text="{Binding CurrentUserAccount.GenderModel, ValidatesOnExceptions=True, StringFormat={}Пол: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                        <TextBlock Text="{Binding CurrentUserAccount.UserRoleModel, ValidatesOnExceptions=True, StringFormat={}Права: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="Auto" Height="Auto" Margin="15 0 0 0">
+                        <TextBlock Text="{Binding CurrentUserAccount.MailModel, ValidatesOnExceptions=True, StringFormat={}Почта: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                        <TextBlock Text="{Binding CurrentUserAccount.MobilePhoneModel, ValidatesOnExceptions=True, StringFormat={}Мобильный: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                        <TextBlock Text="{Binding CurrentUserAccount.HomePhoneModel, ValidatesOnExceptions=True, StringFormat={}Домашний: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                        <TextBlock Text="{Binding CurrentUserAccount.AdressModel, ValidatesOnExceptions=True, StringFormat={}Адресс: {0} }"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                        <TextBlock Text="{Binding CurrentUserAccount.DateOfBornModel ,  StringFormat='{}Дата рождения: {0:dd MMMM, yyyy}'}"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="{Binding CurrentUserAccount.DateAddModel ,  StringFormat='{}Дата регистрации: {0:dd MMMM, yyyy}'}"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="{Binding CurrentUserAccount.DateEditModel ,  StringFormat='{}Изменение профиля: {0:dd MMMM, yyyy}'}"  FontSize="18" Height="Auto" Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Center" Foreground="White"/>
+                </StackPanel>
+            </StackPanel>
+                <Button x:Name="EditInfButton"  Style="{StaticResource AnimationButton}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Margin="0 0 0 30">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Width="130" Height="40">
+                        <TextBlock Margin="20 0 0 0" Text="Изменить" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <iconPacks:PackIconMaterial Margin="10 0 0 0" Kind="AccountEdit" Height="20" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid x:Name="xddd" Grid.Column="1" Grid.Row="0" Margin="10">
+                <Border Background="{StaticResource BackgroundCardBrush}"  BorderThickness="0" CornerRadius="20" Height="auto" Width="Auto" />
+                <TextBlock Text="Способы оплаты" FontWeight="Bold" FontFamily="Franklin Gothic" FontSize="25" Height="Auto" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" Foreground="White" Margin="0 10 0 0"/>
+                <Button x:Name="EditCard"  Style="{StaticResource AnimationButton}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="130" Margin="0 0 0 30">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Width="130" Height="40">
+                        <TextBlock Margin="20 0 0 0" Text="Изменить" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <iconPacks:PackIconMaterial Margin="10 0 0 0" Kind="CreditCardEdit" Height="20" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid x:Name="xda" Grid.Column="0" Grid.Row="1" Margin="10">
+                <uc:InfoCard Title="Баланс" Number="5,000 Р." HorizontalAlignment="Left" VerticalAlignment="Center" Icon="CurrencyRub"  Background1="#252849" Background2="#202443" EllipseBackground1="#ECFF" EllipseBackground2="#202443" />
+                <uc:InfoCard Title="Баланс" Number="5,000 Р." HorizontalAlignment="Right" VerticalAlignment="Center" Icon="CurrencyRub"  Background1="#CDB3A4" Background2="#A96946" EllipseBackground1="#271007" EllipseBackground2="#ECCDB1"  />
+            </Grid>
+        </Grid>
+        <!--#endregion LEVEL 2 -->
+    </Grid>
+    <!--#endregion ALL PAGE -->
+</Page>

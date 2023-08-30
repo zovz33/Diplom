@@ -1,0 +1,18 @@
+﻿<Page x:Class="PrimeTableware.WPF.Views.NavigationPages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PrimeTableware.WPF.Views.NavigationPages"         
+      xmlns:viewModel="clr-namespace:PrimeTableware.WPF.ViewModels"
+      mc:Ignorable="d" 
+        d:DesignHeight="800" d:DesignWidth="1500"
+      Background="Transparent"
+      Title="Главная">
+ 
+    <Grid>
+        <TextBlock Text="{Binding CurrentUserAccount.UsernameSurnameModel, StringFormat=' {0}, вы авторизированы в систему. '}" Foreground="{StaticResource TextColorBrush}" FontSize="32"  FontWeight="Bold" Height="Auto" Width="Auto" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBlock Text="{Binding CurrentUserAccount.ImageModel}" Foreground="{StaticResource TextColorBrush}" FontSize="32" FontWeight="Bold" Height="Auto" Width="Auto" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+        <TextBlock Text="Основная" FontSize="35" Height="50" Width="250" Foreground="White"/>
+    </Grid>
+</Page>

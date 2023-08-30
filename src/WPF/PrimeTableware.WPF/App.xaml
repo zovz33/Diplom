@@ -1,0 +1,17 @@
+﻿<Application x:Class="PrimeTableware.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PrimeTableware.WPF" >
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/WindowStyle.xaml"/> 
+                <ResourceDictionary Source="Styles/MainStyles.xaml"/> 
+                <ResourceDictionary Source="Styles/Theme/DarkTheme.xaml"/> 
+                <ResourceDictionary Source="Styles/AuthRegStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BitmapImage x:Key="AppIcon" UriSource="C:\Users\User\source\repos\LutiyDiplom\src\WPF\PrimeTableware.WPF\Recources\IconApp.png" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+ 
