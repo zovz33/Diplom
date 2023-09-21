@@ -33,7 +33,7 @@ namespace PrimeTableware.ASPNET.Application.Items.User.EventHandlers
             entity.HomePhone = request.HomePhone;
             entity.DateOfBirth = request.DateOfBirth;
             entity.ProfileImage = request.ProfileImage;
-            entity.DateEdit = DateTime.UtcNow;
+            entity.UpdatedDateTime = DateTime.UtcNow;
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

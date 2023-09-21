@@ -1,12 +1,4 @@
 ﻿using MediatR;
-using PrimeTableware.ASPNET.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrimeTableware.ASPNET.Application.Items.User.Commands
 {

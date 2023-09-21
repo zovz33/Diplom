@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PrimeTableware.ASPNET.Domain.Entities.Base
 {
@@ -9,10 +8,8 @@ namespace PrimeTableware.ASPNET.Domain.Entities.Base
         public int Id { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDateTime { get; set; }
-        public string LastModifiedBy { get; set; }
+        public string LastUpdatedBy { get; set; }
         public DateTime? UpdatedDateTime { get; set; }
-        public DateTime? DeletedDateTime { get; set; }
-        [NotMapped]
-        public bool? isSoftDelete { get; set; }
+
     }
 }

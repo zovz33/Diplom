@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using PrimeTableware.ASPNET.Application.Interfaces;
 using PrimeTableware.ASPNET.Domain.Entities;
-using System;
-using System.ComponentModel;
 
 namespace PrimeTableware.ASPNET.Application.Items.User.Commands.CreateUser
 {
@@ -23,8 +21,8 @@ namespace PrimeTableware.ASPNET.Application.Items.User.Commands.CreateUser
                 PasswordHash = request.PasswordHash,
                 Email = request.Email,
                 RoleId = 1,
-                DateAdd = DateTime.UtcNow,
-                DateEdit = null,
+                CreatedDateTime = DateTime.UtcNow,
+                UpdatedDateTime = null,
             };
 
             await _dbContext.Users.AddAsync(user, cancellationToken);
