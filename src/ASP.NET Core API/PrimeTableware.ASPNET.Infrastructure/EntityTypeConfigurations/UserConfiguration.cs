@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PrimeTableware.ASPNET.Domain;
+using PrimeTableware.ASPNET.Domain.Entities;
 
 namespace PrimeTableware.ASPNET.Infrastructure.EntityTypeConfigurations
 {
@@ -9,9 +9,9 @@ namespace PrimeTableware.ASPNET.Infrastructure.EntityTypeConfigurations
 
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(user => user.idUser);
-            builder.HasIndex(user => user.idUser).IsUnique();
-            builder.Property(user => user.Name).HasMaxLength(20);
+            builder.HasKey(user => user.Id);
+            builder.HasIndex(user => user.Id).IsUnique();
+            builder.Property(user => user.UserName).HasMaxLength(20);
         }
     }
 }

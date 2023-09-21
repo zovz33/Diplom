@@ -10,7 +10,6 @@
     <Folder Include="Common\" />
     <Folder Include="Files\" />
     <Folder Include="Identity\" />
-    <Folder Include="Persistence\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
@@ -20,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PrimeTableware.ASPNET.Application\PrimeTableware.ASPNET.Application.csproj" />
     <ProjectReference Include="..\PrimeTableware.ASPNET.Domain\PrimeTableware.ASPNET.Domain.csproj" />
   </ItemGroup>
 

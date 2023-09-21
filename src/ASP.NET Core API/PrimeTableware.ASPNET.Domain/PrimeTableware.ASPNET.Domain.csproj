@@ -7,12 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Common\" />
-    <Folder Include="Entities\" />
     <Folder Include="Enums\" />
     <Folder Include="Events\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Models\Base\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 
