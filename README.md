@@ -12,11 +12,14 @@
 ## Особенности API
 
 - RESTful API
-- Платформа .NET 7.0
+- Платформа .NET 8.0
 - Применение Clean Architecture для организации проекта на уровне слоев.
 - Реализация CQRS для эффективной обработки команд и запросов.
 - Использование FLUENT API для создания элегантного и легко читаемого кода.
 - В качестве ORM Entity Framework Core (EF Core)
+- Dependency Injection
+- AutoMapper
+- MediatR
 
 ## Особенности Angular приложения
 
