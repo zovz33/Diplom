@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+    <span>Катюша</span>
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/">Домашняя страница</button>
+      <button mat-menu-item routerLink="/login">Авторизация</button>
+      <button mat-menu-item routerLink="/signup">Регистрация</button>
+    </mat-menu>
+  </mat-toolbar>
+  

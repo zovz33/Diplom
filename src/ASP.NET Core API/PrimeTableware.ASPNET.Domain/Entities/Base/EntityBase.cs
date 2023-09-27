@@ -6,9 +6,9 @@ namespace PrimeTableware.ASPNET.Domain.Entities.Base
     {
         [Key]
         public int Id { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime CreatedDateTime { get; set; }
-        public string LastUpdatedBy { get; set; }
+        public string? CreatedBy { get; set; }
+        public DateTime? CreatedDateTime { get; set; }
+        public string? LastUpdatedBy { get; set; }
         public DateTime? UpdatedDateTime { get; set; }
 
     }

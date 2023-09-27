@@ -10,6 +10,7 @@ namespace PrimeTableware.ASPNET.Domain.Entities
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+
         [InverseProperty("Permissions")]
         public List<Role> Roles { get; set; }
     }

@@ -1,3 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using PrimeTableware.ASPNET.Application;
+using PrimeTableware.ASPNET.Application.Common.Mappings;
+using PrimeTableware.ASPNET.Application.Interfaces;
+using PrimeTableware.ASPNET.Infrastructure.Persistence;
+using System.Reflection;
 
 namespace PrimeTableware.ASPNET.API
 {
@@ -5,32 +11,114 @@ namespace PrimeTableware.ASPNET.API
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            try
+            {
+                var builder = WebApplication.CreateBuilder(args);
+                ConfigureServices(builder);
+                var app = builder.Build();
+                EnsureDatabaseCreated(app);
+                MigrateDatabase(app);
+                app.Run();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
-            // Add services to the container.
+        private static void ConfigureServices(WebApplicationBuilder builder)
+        {
+            var scope = builder.Services.BuildServiceProvider().CreateScope();
 
+            // Настройка контекста базы данных
+            builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+                     opt.UseSqlServer(builder.Configuration
+                                .GetConnectionString("DbConnection")));
+
+            // Настройка AutoMapper
+            builder.Services.AddAutoMapper(config =>
+            {
+                config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+                config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
+            });
+
+            // Добавление служб приложения и инфраструктуры
+            builder.Services.AddApplication();
+            builder.Services.AddInfrastructure(builder.Configuration);
+
+            // Настройка контроллеров, CORS и Swagger
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyOrigin();
+                });
+            });
+
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Clean Structured API", Version = "v1" });
+            });
+        }
 
-            var app = builder.Build();
+        private static void EnsureDatabaseCreated(WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    // Создание базы данных, если она еще не создана
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    context.Database.EnsureCreated();
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Произошла ошибка при создании базы данных.");
+                }
+            }
+        }
 
-            // Configure the HTTP request pipeline.
+        private static void MigrateDatabase(WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    // Миграция базы данных
+                    services.GetRequiredService<ApplicationDbContext>()
+                            .Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Произошла ошибка при миграции базы данных.");
+                }
+            }
+        }
+
+        private static void Configure(WebApplication app)
+        {
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
+            // Настройка middleware
+            app.UseRouting();
             app.UseHttpsRedirection();
-
+            app.UseCors("AllowAll");
             app.UseAuthorization();
 
-
+            // Настройка контроллеров
             app.MapControllers();
-
-            app.Run();
         }
     }
 }

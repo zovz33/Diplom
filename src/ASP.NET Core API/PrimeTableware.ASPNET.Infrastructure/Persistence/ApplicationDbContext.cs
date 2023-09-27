@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PrimeTableware.ASPNET.Application.Interfaces;
-using PrimeTableware.ASPNET.Domain;
 using PrimeTableware.ASPNET.Domain.Entities;
-using PrimeTableware.ASPNET.Infrastructure.EntityTypeConfigurations;
+using System.Reflection;
 
 namespace PrimeTableware.ASPNET.Infrastructure.Persistence
 {
@@ -12,11 +11,14 @@ namespace PrimeTableware.ASPNET.Infrastructure.Persistence
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(builder);
         }
     }

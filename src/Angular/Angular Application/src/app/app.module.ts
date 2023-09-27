@@ -1,23 +1,42 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
+import { MatMenuModule } from '@angular/material/menu';  
+ 
+// ----components ----
 
-import { HomePageComponent } from './components/home-page/home-page.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+ 
+// ---- services ----
 
+ 
 
 @NgModule({
   declarations: [
     HomePageComponent,
     LoginComponent,
     SignUpComponent,
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    FormsModule,
+    MatMenuModule
   ],
-  providers: [],
+  providers:  [],
   bootstrap: [HomePageComponent]
 })
 export class AppModule { }
