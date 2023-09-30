@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MediatR;
 using System.Reflection;
+using FluentValidation;
+using PrimeTableware.ASPNET.Application.Common.Behaviours;
+using MediatR;
 
 namespace PrimeTableware.ASPNET.Application
 {
@@ -10,6 +12,8 @@ namespace PrimeTableware.ASPNET.Application
             this IServiceCollection services) 
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
+            services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehavior<,>));
             return services;
         }
     }

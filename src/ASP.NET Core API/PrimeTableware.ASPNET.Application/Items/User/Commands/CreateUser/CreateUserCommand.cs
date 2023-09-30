@@ -6,6 +6,7 @@ namespace PrimeTableware.ASPNET.Application.Items.User.Commands
     {
         public string UserName { get; set; }
         public string PasswordHash { get; set; }
+        public string ConfirmPasswordHash { get; set; }
         public string Email { get; set; } 
     }
 }

@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using PrimeTableware.ASPNET.Application.Interfaces;
-using PrimeTableware.ASPNET.Domain.Entities;
 
 namespace PrimeTableware.ASPNET.Application.Items.User.Commands.CreateUser
 {

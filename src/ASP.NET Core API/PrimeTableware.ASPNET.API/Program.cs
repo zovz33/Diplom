@@ -18,11 +18,12 @@ namespace PrimeTableware.ASPNET.API
                 var app = builder.Build();
                 EnsureDatabaseCreated(app);
                 MigrateDatabase(app);
+                Configure(app);
                 app.Run();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Ошибка в Program.cs :" + ex.Message);
             }
         }
 

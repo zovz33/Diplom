@@ -1,23 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 using PrimeTableware.ASPNET.Domain.Entities;
-using System;
+using PrimeTableware.ASPNET.Infrastructure.Common.Base;
 
 
 namespace PrimeTableware.ASPNET.Infrastructure.EntityTypeConfigurations
 {
-    public class RoleConfiguration : IEntityTypeConfiguration<Role>
+    public class RoleConfiguration : BaseEntityTypeConfiguration<Role>
     {
 
-        public void Configure(EntityTypeBuilder<Role> builder)
+        public override void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.HasKey(user => user.Id);
-            builder.HasIndex(user => user.Id).IsUnique();
+            base.Configure(builder);
+            builder.Property(user => user.Name).HasMaxLength(20);
 
-
-            builder.Property(user => user.CreatedBy).HasMaxLength(20);
-            builder.Property(user => user.CreatedDateTime).IsRequired();
-            builder.Property(user => user.LastUpdatedBy).HasMaxLength(20);
         }
     }
 }

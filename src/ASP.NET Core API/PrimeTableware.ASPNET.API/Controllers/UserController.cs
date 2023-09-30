@@ -14,8 +14,11 @@ namespace PrimeTableware.ASPNET.API.Controllers
     {
         private readonly IMapper _mapper;
         public UserController(IMapper mapper) => _mapper = mapper;
+
+        // -------------------- Query
+
         [HttpGet("List")]
-        public async Task<ActionResult<UserListQueryResult>> GetAll()
+        public async Task<ActionResult<GetUserListQueryResult>> GetAll()
         {
             var query = new GetUserListQuery
             {
@@ -34,6 +37,9 @@ namespace PrimeTableware.ASPNET.API.Controllers
             var vm = await Mediator.Send(query);
             return Ok(vm);
         }
+
+        // -------------------- Create
+
         [HttpPost]
         public async Task<ActionResult<int>> Created([FromBody] CreateUserDto createUserDto)
         {
@@ -53,6 +59,9 @@ namespace PrimeTableware.ASPNET.API.Controllers
             await Mediator.Send(command);
             return NoContent();
         }
+
+        // -------------------- Delete
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

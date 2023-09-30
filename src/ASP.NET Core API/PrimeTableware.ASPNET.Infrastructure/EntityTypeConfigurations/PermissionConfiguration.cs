@@ -1,23 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 using PrimeTableware.ASPNET.Domain.Entities;
-using System;
-
+using PrimeTableware.ASPNET.Infrastructure.Common.Base;
 
 namespace PrimeTableware.ASPNET.Infrastructure.EntityTypeConfigurations
 {
-    public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
+    public class PermissionConfiguration : BaseEntityTypeConfiguration<Permission>
     {
 
-        public void Configure(EntityTypeBuilder<Permission> builder)
+        public override void Configure(EntityTypeBuilder<Permission> builder)
         {
-            builder.HasKey(user => user.Id);
-            builder.HasIndex(user => user.Id).IsUnique();
+            base.Configure(builder);
 
+            builder.Property(user => user.Name).HasMaxLength(20);
 
-            builder.Property(user => user.CreatedBy).HasMaxLength(20);
-            builder.Property(user => user.CreatedDateTime).IsRequired();
-            builder.Property(user => user.LastUpdatedBy).HasMaxLength(20);
         }
     }
 }

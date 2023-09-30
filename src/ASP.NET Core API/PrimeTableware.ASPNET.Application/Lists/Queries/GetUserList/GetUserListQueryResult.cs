@@ -5,7 +5,7 @@ using PrimeTableware.ASPNET.Domain.Entities;
 
 namespace PrimeTableware.ASPNET.Application.Lists.Queries.GetUserList
 {
-    public class UserListQueryResult
+    public class GetUserListQueryResult
     {
         public IList<UserLookupDto> Users { get; set; }
     }
