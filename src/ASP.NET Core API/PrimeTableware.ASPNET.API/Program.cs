@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using PrimeTableware.ASPNET.API.Middleware;
 using PrimeTableware.ASPNET.Application;
 using PrimeTableware.ASPNET.Application.Common.Mappings;
 using PrimeTableware.ASPNET.Application.Interfaces;
@@ -113,6 +114,8 @@ namespace PrimeTableware.ASPNET.API
             }
 
             // Настройка middleware
+            app.UseCustomExceptionHandler();
+
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
