@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeTableware.MAUI", "src\MAUI\PrimeTableware.MAUI\PrimeTableware.MAUI.csproj", "{FF0E52A1-6D34-4726-ABCA-E8141D3BB2B3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MAUI", "MAUI", "{52B4A797-DA7A-4916-B2AE-AA44A6146AB5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP.NET Core API", "ASP.NET Core API", "{EE1F88DE-6D04-46B2-8AF8-42232FF150E1}"
@@ -21,22 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeTableware.ASPNET.Domai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeTableware.ASPNET.Infrastructure", "src\ASP.NET Core API\PrimeTableware.ASPNET.Infrastructure\PrimeTableware.ASPNET.Infrastructure.csproj", "{D3F51C1E-E9A7-42C3-9D18-7ECB10A3CCC2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{5CE51107-F7E8-4366-BD89-02E5506FC49E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeTableware.WPF", "src\WPF\PrimeTableware.WPF\PrimeTableware.WPF.csproj", "{4CCBF54E-990A-4096-A727-EC6629CC4B65}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FF0E52A1-6D34-4726-ABCA-E8141D3BB2B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF0E52A1-6D34-4726-ABCA-E8141D3BB2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF0E52A1-6D34-4726-ABCA-E8141D3BB2B3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{FF0E52A1-6D34-4726-ABCA-E8141D3BB2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF0E52A1-6D34-4726-ABCA-E8141D3BB2B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF0E52A1-6D34-4726-ABCA-E8141D3BB2B3}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{89D1D18F-662D-4DF5-9A38-DCC0977D4CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89D1D18F-662D-4DF5-9A38-DCC0977D4CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89D1D18F-662D-4DF5-9A38-DCC0977D4CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,21 +41,15 @@ Global
 		{D3F51C1E-E9A7-42C3-9D18-7ECB10A3CCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3F51C1E-E9A7-42C3-9D18-7ECB10A3CCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3F51C1E-E9A7-42C3-9D18-7ECB10A3CCC2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CCBF54E-990A-4096-A727-EC6629CC4B65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CCBF54E-990A-4096-A727-EC6629CC4B65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CCBF54E-990A-4096-A727-EC6629CC4B65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CCBF54E-990A-4096-A727-EC6629CC4B65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{FF0E52A1-6D34-4726-ABCA-E8141D3BB2B3} = {52B4A797-DA7A-4916-B2AE-AA44A6146AB5}
 		{89D1D18F-662D-4DF5-9A38-DCC0977D4CAA} = {EE1F88DE-6D04-46B2-8AF8-42232FF150E1}
 		{5E9AE9F2-F02E-42BC-8C82-0C223AB562BD} = {EE1F88DE-6D04-46B2-8AF8-42232FF150E1}
 		{0F462127-8102-4135-9B20-EB40BD789008} = {EE1F88DE-6D04-46B2-8AF8-42232FF150E1}
 		{D3F51C1E-E9A7-42C3-9D18-7ECB10A3CCC2} = {EE1F88DE-6D04-46B2-8AF8-42232FF150E1}
-		{4CCBF54E-990A-4096-A727-EC6629CC4B65} = {5CE51107-F7E8-4366-BD89-02E5506FC49E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90D778D8-D4AE-43E2-B5CC-9EB2119FE95F}

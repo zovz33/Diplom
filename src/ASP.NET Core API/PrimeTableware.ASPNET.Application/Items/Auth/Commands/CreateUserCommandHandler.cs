@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using PrimeTableware.ASPNET.Application.Interfaces;
 
-namespace PrimeTableware.ASPNET.Application.Items.User.Commands.CreateUser
+namespace PrimeTableware.ASPNET.Application.Items.Auth.Commands
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
+    public class CreateUserCommandHandler : IRequestHandler<RegisterUserCommand, int>
     {
         private readonly IApplicationDbContext _dbContext;
 
@@ -12,24 +12,14 @@ namespace PrimeTableware.ASPNET.Application.Items.User.Commands.CreateUser
             _dbContext = dbContext;
         }
 
-        public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
             var user = new Domain.Entities.User
             {
                 UserName = request.UserName,
                 PasswordHash = request.PasswordHash,
                 Email = request.Email,
-                RoleId = request.RoleId,
-                MobilePhone = request.MobilePhone,
-                FirstName = request.FirstName,
-                MiddleName = request.MiddleName,
-                LastName = request.LastName,
-                Gender = request.Gender,
-                Address = request.Address,
-                HomePhone = request.HomePhone,
-                DateOfBirth = request.DateOfBirth,
-                ProfileImage = request.ProfileImage,
-      //        CreatedBy = ,
+                RoleId = 1,
                 CreatedDateTime = DateTime.UtcNow,
                 UpdatedDateTime = null,
             };

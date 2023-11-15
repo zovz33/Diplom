@@ -17,8 +17,13 @@ namespace PrimeTableware.ASPNET.Application.Lists.Queries.GetUserList
 
         public async Task<GetUserListQueryResult> Handle(GetUserListQuery request, CancellationToken cancellationToken)
         {
+            /*            var userQuery = await _dbContext.Users
+                            .Where(user => user.Id == request.Id)
+                            .ProjectTo<UserLookupDto>(_mapper.ConfigurationProvider)
+                            .ToListAsync(cancellationToken);
+
+                        return new GetUserListQueryResult { Users = userQuery };*/
             var userQuery = await _dbContext.Users
-                .Where(user => user.Id == request.Id)
                 .ProjectTo<UserLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

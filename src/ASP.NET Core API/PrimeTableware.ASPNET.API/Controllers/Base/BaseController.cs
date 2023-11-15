@@ -13,7 +13,6 @@ namespace PrimeTableware.ASPNET.API.Controllers.Base
             _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
         internal int Id => !User.Identity.IsAuthenticated
-            ? 0
-            : int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            ? 0 : int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
     }
 }

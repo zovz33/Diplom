@@ -14,10 +14,10 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { CutTextPipe } from './pipes/cuttext/cut-text.pipe';
+import { SortDataPipe } from './pipes/sortdata/sort-data.pipe';
  
 // ---- services ----
-
- 
 
 @NgModule({
   declarations: [
@@ -25,6 +25,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     LoginComponent,
     SignUpComponent,
     NavigationComponent,
+    CutTextPipe,
+    SortDataPipe,
   ],
   imports: [
     BrowserModule,

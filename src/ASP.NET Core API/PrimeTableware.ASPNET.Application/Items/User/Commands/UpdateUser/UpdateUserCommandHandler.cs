@@ -2,20 +2,19 @@
 using Microsoft.EntityFrameworkCore;
 using PrimeTableware.ASPNET.Application.Common.Exceptions;
 using PrimeTableware.ASPNET.Application.Interfaces;
-using PrimeTableware.ASPNET.Application.Items.User.Commands;
 
-namespace PrimeTableware.ASPNET.Application.Items.User.EventHandlers
+namespace PrimeTableware.ASPNET.Application.Items.User.Commands.UpdateUser
 {
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
     {
         private readonly IApplicationDbContext _dbContext;
-        public UpdateUserCommandHandler(IApplicationDbContext dbContext) => 
+        public UpdateUserCommandHandler(IApplicationDbContext dbContext) =>
         _dbContext = dbContext;
-        
-        public async Task<Unit> Handle (UpdateUserCommand request, CancellationToken cancellationToken)
+
+        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var entity = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == request.Id, cancellationToken);
-            if (entity == null || entity.RoleId != request.RoleId) 
+            if (entity == null)
             {
                 throw new NotFoundException(nameof(User), request.Id);
             }

@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
-using PrimeTableware.ASPNET.Application.Items.User.Commands;
+using PrimeTableware.ASPNET.Application.Common.Mappings;
+using PrimeTableware.ASPNET.Application.Items.User.Commands.UpdateUser;
 
 namespace PrimeTableware.ASPNET.API.Models
 {
-    public class UpdateUserDto
+    public class UpdateUserDto : IMapWith<UpdateUserCommand>
     {
-        public int Id { get; set; }
+ 
         public string UserName { get; set; }
         public string PasswordHash { get; set; }
         public string Email { get; set; }
@@ -23,8 +24,6 @@ namespace PrimeTableware.ASPNET.API.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateUserDto, UpdateUserCommand>()
-                .ForMember(userCommand => userCommand.Id, opt =>
-            opt.MapFrom(userDto => userDto.Id))
                 .ForMember(userCommand => userCommand.UserName, opt =>
             opt.MapFrom(userDto => userDto.UserName))
                 .ForMember(userCommand => userCommand.PasswordHash, opt =>
@@ -52,7 +51,5 @@ namespace PrimeTableware.ASPNET.API.Models
                 .ForMember(userCommand => userCommand.ProfileImage, opt =>
             opt.MapFrom(userDto => userDto.ProfileImage));
         }
-
-
     }
 }

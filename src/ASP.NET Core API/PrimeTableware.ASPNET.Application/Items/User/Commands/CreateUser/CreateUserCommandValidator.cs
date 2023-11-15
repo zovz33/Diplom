@@ -12,7 +12,28 @@ namespace PrimeTableware.ASPNET.Application.Items.User.Commands.CreateUser
             RuleFor(createUserCommand =>
                createUserCommand.UserName).NotEmpty().Length(2, 20);
             RuleFor(createUserCommand =>
-               createUserCommand.PasswordHash).NotEmpty().Length(2, 20).Equal(createUserCommand => createUserCommand.ConfirmPasswordHash);
+               createUserCommand.PasswordHash).NotEmpty().Length(2, 20);
+            RuleFor(createUserCommand =>
+               createUserCommand.Gender).MaximumLength(1);
+            RuleFor(createUserCommand =>
+               createUserCommand.RoleId).NotEmpty();
+            RuleFor(createUserCommand =>
+               createUserCommand.MobilePhone).Length(7, 20);
+            RuleFor(createUserCommand =>
+               createUserCommand.FirstName).Length(2, 20);
+            RuleFor(createUserCommand =>
+               createUserCommand.MiddleName).Length(2, 20);
+            RuleFor(createUserCommand =>
+               createUserCommand.LastName).Length(2, 20);
+            RuleFor(createUserCommand =>
+               createUserCommand.Address).Length(0, 30);
+            RuleFor(createUserCommand =>
+               createUserCommand.HomePhone).Length(0, 15);
+            RuleFor(createUserCommand =>
+               createUserCommand.DateOfBirth).LessThan(DateTime.Now);
+            RuleFor(createUserCommand =>
+               createUserCommand.ProfileImage).Length(0, 200);
+
         }
     }
 }

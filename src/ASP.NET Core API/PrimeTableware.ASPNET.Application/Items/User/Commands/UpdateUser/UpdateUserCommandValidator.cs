@@ -7,8 +7,7 @@ namespace PrimeTableware.ASPNET.Application.Items.User.Commands.UpdateUser
     {
         public UpdateUserCommandValidator()
         {
-            RuleFor(updateUserCommand =>
-               updateUserCommand.Id).NotEmpty();
+
             RuleFor(updateUserCommand =>
                updateUserCommand.Email).NotEmpty().Length(2, 20).EmailAddress();
             RuleFor(updateUserCommand =>
@@ -24,7 +23,7 @@ namespace PrimeTableware.ASPNET.Application.Items.User.Commands.UpdateUser
             RuleFor(updateUserCommand =>
                updateUserCommand.FirstName).Length(2, 20);
             RuleFor(updateUserCommand =>
-               updateUserCommand.MiddleName).Length(0, 20);
+               updateUserCommand.MiddleName).Length(2, 20);
             RuleFor(updateUserCommand =>
                updateUserCommand.LastName).Length(2, 20);
             RuleFor(updateUserCommand =>

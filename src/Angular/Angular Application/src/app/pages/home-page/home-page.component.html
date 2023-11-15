@@ -1,19 +1,17 @@
-<button
-type="button"
-[disabled]="canClick"
-(click)="sayMessage()"
->
-Trigger alert message
-</button>
-
-<p [id]="sayHelloId" [style.color]="fontColor">
-You can set my color in the component!
-</p>
-
-<p>My color is {{ fontColor }}</p>
-<hello-world></hello-world>
-
-
-
-
-<router-outlet></router-outlet>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="container">
+        <app-navigation></app-navigation>
+    </div> 
+    <div> 
+        <h1>{{HomePageTitle | titlecase}}</h1>
+	 </div>     
+    <router-outlet></router-outlet>
+</body>
+</html>

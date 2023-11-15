@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace PrimeTableware.ASPNET.Application.Items.User.Commands
+namespace PrimeTableware.ASPNET.Application.Items.User.Commands.UpdateUser
 {
     public class UpdateUserCommand : IRequest<Unit>
     {

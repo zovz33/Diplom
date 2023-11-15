@@ -8,5 +8,22 @@
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}"
         }
+		  ,
+		  {
+			"name": "Launch Firefox",
+			"type": "firefox",
+			"request": "launch",
+			"url": "https://localhost:4200",
+			"webRoot": "${workspaceFolder}/client"
+        },
+		  {
+			"type": "firefox",
+			"request": "attach",
+			"preLaunchTask": "npm: start", 
+			"name": "firefox ng serve",
+			"url": "http://localhost:4200/",
+			"webRoot": "${workspaceFolder}"
+	 
+		 },
     ]
 }
