@@ -4,14 +4,14 @@ using PrimeTableware.ASPNET.Domain.Entities.Base;
 
 namespace PrimeTableware.ASPNET.Domain.Entities
 {
-    [Table("Permissions")]
-    public class Permission : BaseEntity
+    [Table("Products")]
+    public class Product : BaseEntity
     {
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
 
-        [InverseProperty("Permissions")]
-        public List<Role> Roles { get; set; }
+        //[InverseProperty("Products")]
+        //public List<Order> Orders { get; set; }
     }
 }

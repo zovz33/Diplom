@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 
 
-namespace PrimeTableware.ASPNET.Application.Items.Auth.Commands
+namespace PrimeTableware.ASPNET.Application.Items.Auth.Commands.Login
 {
-    public class CreateUserCommandValidator : AbstractValidator<RegisterUserCommand>
+    public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {
-        public CreateUserCommandValidator()
+        public LoginCommandValidator()
         {
             RuleFor(createUserCommand =>
                createUserCommand.Email).NotEmpty().Length(2, 20).EmailAddress();

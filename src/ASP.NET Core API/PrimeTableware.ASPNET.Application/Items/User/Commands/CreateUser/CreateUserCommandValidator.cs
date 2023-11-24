@@ -18,7 +18,7 @@ namespace PrimeTableware.ASPNET.Application.Items.User.Commands.CreateUser
             RuleFor(createUserCommand =>
                createUserCommand.RoleId).NotEmpty();
             RuleFor(createUserCommand =>
-               createUserCommand.MobilePhone).Length(7, 20);
+               createUserCommand.PhoneNumber).Length(7, 20);
             RuleFor(createUserCommand =>
                createUserCommand.FirstName).Length(2, 20);
             RuleFor(createUserCommand =>
@@ -27,8 +27,6 @@ namespace PrimeTableware.ASPNET.Application.Items.User.Commands.CreateUser
                createUserCommand.LastName).Length(2, 20);
             RuleFor(createUserCommand =>
                createUserCommand.Address).Length(0, 30);
-            RuleFor(createUserCommand =>
-               createUserCommand.HomePhone).Length(0, 15);
             RuleFor(createUserCommand =>
                createUserCommand.DateOfBirth).LessThan(DateTime.Now);
             RuleFor(createUserCommand =>

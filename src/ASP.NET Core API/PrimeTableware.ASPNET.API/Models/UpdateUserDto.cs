@@ -11,13 +11,12 @@ namespace PrimeTableware.ASPNET.API.Models
         public string PasswordHash { get; set; }
         public string Email { get; set; }
         public int RoleId { get; set; }
-        public string MobilePhone { get; set; }
+        public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
-        public string Address { get; set; }
-        public string HomePhone { get; set; }
+        public string Address { get; set; } 
         public DateTime? DateOfBirth { get; set; }
         public string ProfileImage { get; set; }
 
@@ -32,8 +31,8 @@ namespace PrimeTableware.ASPNET.API.Models
             opt.MapFrom(userDto => userDto.Email))
                 .ForMember(userCommand => userCommand.RoleId, opt =>
             opt.MapFrom(userDto => userDto.RoleId))
-                .ForMember(userCommand => userCommand.MobilePhone, opt =>
-            opt.MapFrom(userDto => userDto.MobilePhone))
+                .ForMember(userCommand => userCommand.PhoneNumber, opt =>
+            opt.MapFrom(userDto => userDto.PhoneNumber))
                 .ForMember(userCommand => userCommand.FirstName, opt =>
             opt.MapFrom(userDto => userDto.FirstName))
                 .ForMember(userCommand => userCommand.MiddleName, opt =>
@@ -43,9 +42,7 @@ namespace PrimeTableware.ASPNET.API.Models
                 .ForMember(userCommand => userCommand.Gender, opt =>
             opt.MapFrom(userDto => userDto.Gender))
                 .ForMember(userCommand => userCommand.Address, opt =>
-            opt.MapFrom(userDto => userDto.Address))
-                .ForMember(userCommand => userCommand.HomePhone, opt =>
-            opt.MapFrom(userDto => userDto.HomePhone))
+            opt.MapFrom(userDto => userDto.Address)) 
                 .ForMember(userCommand => userCommand.DateOfBirth, opt =>
             opt.MapFrom(userDto => userDto.DateOfBirth))
                 .ForMember(userCommand => userCommand.ProfileImage, opt =>

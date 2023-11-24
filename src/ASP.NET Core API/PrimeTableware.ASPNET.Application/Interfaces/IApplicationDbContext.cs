@@ -6,8 +6,8 @@ namespace PrimeTableware.ASPNET.Application.Interfaces
     public interface IApplicationDbContext
     {
         DbSet<User> Users { get; set; }
-        DbSet<Role> Roles { get; set; }
-        DbSet<Permission> Permissions { get; set; }
+        DbSet<Order> Orders { get; set; }
+        DbSet<Product> Products { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

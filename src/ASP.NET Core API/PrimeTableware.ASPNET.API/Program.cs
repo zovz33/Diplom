@@ -1,11 +1,16 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using PrimeTableware.ASPNET.API.Middleware;
 using PrimeTableware.ASPNET.Application;
 using PrimeTableware.ASPNET.Application.Common.Mappings;
 using PrimeTableware.ASPNET.Application.Interfaces;
-using PrimeTableware.ASPNET.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Identity;
+using PrimeTableware.ASPNET.Domain.Entities;
+using PrimeTableware.ASPNET.Infrastructure.Data;
+using PrimeTableware.ASPNET.Infrastructure.Identity;
+using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 
 namespace PrimeTableware.ASPNET.API
@@ -14,15 +19,14 @@ namespace PrimeTableware.ASPNET.API
     {
         public static void Main(string[] args)
         {
+            var builder = WebApplication.CreateBuilder(args);
             try
             {
-                var builder = WebApplication.CreateBuilder(args);
                 ConfigureServices(builder);
                 var app = builder.Build();
                 EnsureDatabaseCreated(app);
                 MigrateDatabase(app);
                 Configure(app);
-                app.Run();
             }
             catch (Exception ex)
             {
@@ -32,17 +36,35 @@ namespace PrimeTableware.ASPNET.API
 
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
-            var scope = builder.Services.BuildServiceProvider().CreateScope();
+            builder.Services.AddSingleton<IEmailSender, EmailSender>();
+            builder.Services.AddDbContext<ApplicationDbContext>(opt =>
+                        opt.UseNpgsql(builder.Configuration.GetConnectionString("DbConnection")));
+
+            builder.Services.AddDefaultIdentity<IdentityUser<int>>(opt => 
+                    opt.SignIn.RequireConfirmedAccount = true) // Обязательно подтвержденный аккаунт для входа
+                        .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddIdentityCore<User>(opt =>
+            {
+                opt.User.RequireUniqueEmail = true;
+            }).AddRoles<IdentityRole<int>>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddApiEndpoints()
+                .AddUserManager<UserManager<User>>();
 
             builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
-            builder.Services.AddAuthorizationBuilder();
-            ConfigureDatabase(builder);
+
+
+
+            //builder.Services.AddIdentityApiEndpoints<User>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddAutoMapper(config =>
             {
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
                 config.AddProfile(new AssemblyMappingProfile(typeof(IApplicationDbContext).Assembly));
             });
+
 
             builder.Services.AddApplication();
             builder.Services.AddInfrastructure(builder.Configuration);
@@ -56,26 +78,50 @@ namespace PrimeTableware.ASPNET.API
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
-                    {
-                        policy.AllowAnyHeader();
-                        policy.AllowAnyMethod();
-                        policy.AllowAnyOrigin();
-                    });
+                {
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyOrigin();
+                });
             });
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Clean Structured API", Version = "v1" });
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "DIPLOM REST API", Version = "v1" });
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
         }
 
-        private static void ConfigureDatabase(WebApplicationBuilder builder)
+        private static void Configure(WebApplication app)
         {
-            builder.Services.AddDbContext<ApplicationDbContext>(opt =>
-                        opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+            // middleware
+            app.MapIdentityApi<IdentityUser>();
+            app.MapSwagger().RequireAuthorization();
+            app.UseCustomExceptionHandler();
+            app.UseRouting();
+            app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
+            app.UseAuthentication();
+            app.UseAuthorization();
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
+            app.MapControllers();
+            app.Run();
         }
-
         private static void EnsureDatabaseCreated(WebApplication app)
         {
             using (var scope = app.Services.CreateScope())
@@ -93,7 +139,6 @@ namespace PrimeTableware.ASPNET.API
                 }
             }
         }
-
         private static void MigrateDatabase(WebApplication app)
         {
             using (var scope = app.Services.CreateScope())
@@ -110,26 +155,6 @@ namespace PrimeTableware.ASPNET.API
                     logger.LogError(ex, $"Ошибка при миграции базы данных: {ex.Message}");
                 }
             }
-        }
-
-        private static void Configure(WebApplication app)
-        {
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            // middleware
-            app.UseCustomExceptionHandler();
-
-            app.UseRouting();
-            app.UseHttpsRedirection();
-            app.UseCors("AllowAll");
-            app.UseAuthorization();
-
-            //  
-            app.MapControllers();
         }
     }
 }

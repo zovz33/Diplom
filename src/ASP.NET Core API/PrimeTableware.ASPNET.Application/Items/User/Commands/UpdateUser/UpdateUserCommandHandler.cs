@@ -22,14 +22,13 @@ namespace PrimeTableware.ASPNET.Application.Items.User.Commands.UpdateUser
             entity.UserName = request.UserName;
             entity.PasswordHash = request.PasswordHash;
             entity.Email = request.Email;
-            entity.RoleId = request.RoleId;
-            entity.MobilePhone = request.MobilePhone;
+            //entity.RoleId = request.RoleId;
+            //entity.PhoneNumber = request.PhoneNumber;
             entity.FirstName = request.FirstName;
             entity.MiddleName = request.MiddleName;
             entity.LastName = request.LastName;
             entity.Gender = request.Gender;
-            entity.Address = request.Address;
-            entity.HomePhone = request.HomePhone;
+            entity.Address = request.Address; 
             entity.DateOfBirth = request.DateOfBirth;
             entity.ProfileImage = request.ProfileImage;
             entity.UpdatedDateTime = DateTime.UtcNow;

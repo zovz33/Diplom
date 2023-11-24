@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using PrimeTableware.ASPNET.API.Controllers.Base;
 using PrimeTableware.ASPNET.API.Models;
 using PrimeTableware.ASPNET.Application.Common.Exceptions;
@@ -14,6 +13,7 @@ using PrimeTableware.ASPNET.Application.Lists.Queries.GetUserList;
 
 namespace PrimeTableware.ASPNET.API.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class UserController : BaseController
     {
@@ -25,10 +25,10 @@ namespace PrimeTableware.ASPNET.API.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> CreateUser([FromBody] CreateUserDto createUserDto)
         {
-           var command = _mapper.Map<CreateUserCommand>(createUserDto);
-           command.UserName = createUserDto.UserName;
-           var userId = await Mediator.Send(command);
-           return Ok(userId);
+            var command = _mapper.Map<CreateUserCommand>(createUserDto);
+            command.UserName = createUserDto.UserName;
+            var userId = await Mediator.Send(command);
+            return Ok(userId);
         }
 
         // -------------------- Update
@@ -54,7 +54,7 @@ namespace PrimeTableware.ASPNET.API.Controllers
             var query = new GetUserByIdQuery
             {
                 Id = id,
-            }; 
+            };
             var result = await Mediator.Send(query);
 
             if (result == null)

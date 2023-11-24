@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PrimeTableware.ASPNET.Application.Interfaces;
 
-namespace PrimeTableware.ASPNET.Infrastructure.Persistence
+namespace PrimeTableware.ASPNET.Infrastructure.Data
 {
     public static class DependencyInjection
     {
@@ -13,7 +13,7 @@ namespace PrimeTableware.ASPNET.Infrastructure.Persistence
             var connectionString = configuration.GetConnectionString("DbConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(connectionString);
+                options.UseNpgsql(connectionString);
             });
             services.AddScoped<IApplicationDbContext>(provider =>
                 provider.GetRequiredService<ApplicationDbContext>());

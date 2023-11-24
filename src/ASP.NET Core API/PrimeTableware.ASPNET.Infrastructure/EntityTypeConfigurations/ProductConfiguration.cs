@@ -4,10 +4,10 @@ using PrimeTableware.ASPNET.Infrastructure.Common.Base;
 
 namespace PrimeTableware.ASPNET.Infrastructure.EntityTypeConfigurations
 {
-    public class PermissionConfiguration : BaseEntityTypeConfiguration<Permission>
+    public class ProductConfiguration : BaseEntityTypeConfiguration<Product>
     {
 
-        public override void Configure(EntityTypeBuilder<Permission> builder)
+        public override void Configure(EntityTypeBuilder<Product> builder)
         {
             base.Configure(builder);
 

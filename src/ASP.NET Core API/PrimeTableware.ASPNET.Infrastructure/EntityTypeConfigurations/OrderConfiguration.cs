@@ -5,12 +5,13 @@ using PrimeTableware.ASPNET.Infrastructure.Common.Base;
 
 namespace PrimeTableware.ASPNET.Infrastructure.EntityTypeConfigurations
 {
-    public class RoleConfiguration : BaseEntityTypeConfiguration<Role>
+    public class RoleConfiguration : BaseEntityTypeConfiguration<Order>
     {
 
-        public override void Configure(EntityTypeBuilder<Role> builder)
+        public override void Configure(EntityTypeBuilder<Order> builder)
         {
             base.Configure(builder);
+
             builder.Property(user => user.Name).HasMaxLength(20);
 
         }
