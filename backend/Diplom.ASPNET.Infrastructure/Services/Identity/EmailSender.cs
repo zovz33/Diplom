@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace Diplom.ASPNET.Infrastructure.Identity
+namespace Diplom.ASPNET.Infrastructure.Services.Identity
 {
     public class EmailSender : IEmailSender
     {
