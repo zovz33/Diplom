@@ -5,13 +5,13 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{2DAE924D-0F08-4C30-A6DB-718772D494C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeTableware.ASPNET.API", "ASP.NET Core API\PrimeTableware.ASPNET.API\PrimeTableware.ASPNET.API.csproj", "{E613CD65-EE34-41E5-979B-1D657F779BC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diplom.ASPNET.API", "ASP.NET Core API\PrimeTableware.ASPNET.API\Diplom.ASPNET.API.csproj", "{E613CD65-EE34-41E5-979B-1D657F779BC9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeTableware.ASPNET.Application", "ASP.NET Core API\PrimeTableware.ASPNET.Application\PrimeTableware.ASPNET.Application.csproj", "{9359A3DC-6DC4-408D-B13D-15A8221DE39B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diplom.ASPNET.Application", "ASP.NET Core API\PrimeTableware.ASPNET.Application\Diplom.ASPNET.Application.csproj", "{9359A3DC-6DC4-408D-B13D-15A8221DE39B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeTableware.ASPNET.Domain", "ASP.NET Core API\PrimeTableware.ASPNET.Domain\PrimeTableware.ASPNET.Domain.csproj", "{BA23E37C-ACA0-45ED-B7CC-F1F7BFF512B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diplom.ASPNET.Domain", "ASP.NET Core API\PrimeTableware.ASPNET.Domain\Diplom.ASPNET.Domain.csproj", "{BA23E37C-ACA0-45ED-B7CC-F1F7BFF512B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrimeTableware.ASPNET.Infrastructure", "ASP.NET Core API\PrimeTableware.ASPNET.Infrastructure\PrimeTableware.ASPNET.Infrastructure.csproj", "{E507E659-015B-43F4-AEAD-B4A958058BC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diplom.ASPNET.Infrastructure", "ASP.NET Core API\PrimeTableware.ASPNET.Infrastructure\Diplom.ASPNET.Infrastructure.csproj", "{E507E659-015B-43F4-AEAD-B4A958058BC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
