@@ -1,45 +1,59 @@
 # Дипломный проект: Full-Stack Разработка с использованием ASP.NET Core, Angular, WPF и MAUI
 
-Привет! Добро пожаловать в репозиторий дипломного проекта. Этот проект демонстрирует применение технологий ASP.NET Core, Angular, WPF и MAUI для создания масштабируемого и многофункционального приложения.
+Привет! Добро пожаловать в репозиторий дипломного проекта. Этот проект демонстрирует применение технологий ASP.NET Core, Angular, MAUI и Avalonia для создания масштабируемого и многофункционального приложения.
 
 ## О проекте
 
 - Backend: ASP.NET Core API
 - Frontend: Angular
-- Desktop: WPF
+- Desktop: Avalonia
 - Mobile: MAUI
 
 ## Особенности API
 
 - RESTful API
 - Платформа .NET 8.0
-- Применение Clean Architecture для организации проекта на уровне слоев.
-- Реализация CQRS для эффективной обработки команд и запросов.
-- Использование FLUENT API для создания элегантного и легко читаемого кода.
-- В качестве ORM Entity Framework Core (EF Core)
+- Fluent API 
 - Dependency Injection
+
+## Tech stack
+
+- ASP.NET Core 8.0 (with .NET 8.0)
+- ASP.NET REST Controllers API 
+
+# Authentification
+
+- ASP.NET Core Identity
+- ASP.NET Core Authentication Bearer
+
+# ORM / DataBase
+- Entity Framework Core
+- PosgreSQL
+
+# Library
+
 - AutoMapper
+- FluentValidator
 - MediatR
+- Serilog
+    
+# Design Patterns
+
+- Clean Architecture для организации проекта на уровне слоев.
+- CQRS для эффективной обработки команд и запросов.
 
 ## Особенности Angular приложения
 
-
-
-## Особенности WPF приложения
-
-
-
 ## Особенности MAUI приложения
 
+## Особенности Avalonia приложения
 
 
-## Как начать
 
-1. Склонируйте этот репозиторий на свой локальный компьютер.
-2. Перейдите в папку `ASP.NET Core API` для работы с ASP.NET Core API.
-3. Перейдите в папку `Angular` для работы с Angular веб-приложением.
-4. Перейдите в папку `WPF` для работы с WPF десктопным приложением.
-5. Перейдите в папку `MAUI` для работы с MAUI мобильным приложением.
+## How to run
+
+1. Установите .NET 8 https://dotnet.microsoft.com/en-us/download
+2. Склонируйте этот репозиторий на свой локальный компьютер.
 
 ## Ресурсы
 
