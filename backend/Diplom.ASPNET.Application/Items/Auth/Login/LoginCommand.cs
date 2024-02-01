@@ -1,11 +1,9 @@
 ﻿using MediatR;
-using Diplom.ASPNET.Application.Items.Auth.Login;
 
-namespace Diplom.ASPNET.Application.Items.Auth.Commands.Login
+namespace Diplom.ASPNET.Application.Items.Auth.Login;
+
+public class LoginCommand : IRequest<LoginResponseResult>
 {
-    public class LoginCommand : IRequest<LoginResponseResult>
-    {
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-    }
+    public string UserName { get; set; }
+    public string Password { get; set; }
 }

@@ -1,0 +1,44 @@
+.container {
+	background-color: transparent; 
+	position: relative;
+ }
+ 
+ .mat-toolbar {
+	background-color: transparent; 
+	position: relative;
+ }
+ 
+ .container button {
+	background-color: #fff;
+	color: #333;
+	margin: 0 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 120px;
+	height: 40px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+ }
+ 
+ .container button:hover {
+	background-color: #ddd;
+	color: #333;
+	transition: 0.4s;
+ }
+ 
+ .center-nav {
+	display: flex;
+	align-items: center;
+	justify-content: center; 
+	position: absolute; 
+ }
+ 
+ .right-nav {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	right: 0;
+ }
+ 

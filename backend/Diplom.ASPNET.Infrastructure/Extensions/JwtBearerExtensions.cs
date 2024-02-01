@@ -1,11 +1,11 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using Diplom.ASPNET.Domain.Entities.Identity;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Diplom.ASPNET.Domain.Entities.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Diplom.ASPNET.Infrastructure;
@@ -21,7 +21,7 @@ public static class JwtBearerExtensions
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new(ClaimTypes.Name, user.UserName!),
             new(ClaimTypes.Email, user.Email!),
-            new(ClaimTypes.Role, string.Join(" ", roles.Select(x => x.Name))),
+            new(ClaimTypes.Role, string.Join(" ", roles.Select(x => x.Name)))
         };
         var roleClaims = roles.Select(role => new Claim(ClaimTypes.Role, role.Name));
         claims.AddRange(roleClaims);
@@ -58,8 +58,8 @@ public static class JwtBearerExtensions
         var tokenValidityInMinutes = configuration.GetSection("Jwt:TokenValidityInMinutes").Get<int>();
 
         var token = new JwtSecurityToken(
-            issuer: configuration["Jwt:Issuer"],
-            audience: configuration["Jwt:Audience"],
+            configuration["Jwt:Issuer"],
+            configuration["Jwt:Audience"],
             expires: DateTime.Now.AddMinutes(tokenValidityInMinutes),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
@@ -89,7 +89,9 @@ public static class JwtBearerExtensions
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
-        if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+        if (securityToken is not JwtSecurityToken jwtSecurityToken ||
+            !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
+                StringComparison.InvariantCultureIgnoreCase))
             throw new SecurityTokenException("Invalid token");
 
         return principal;

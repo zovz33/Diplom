@@ -1,20 +1,20 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace Diplom.ASPNET.Infrastructure;
+namespace Diplom.ASPNET.Infrastructure.Extensions;
 
 public static class EnumExtensions
 {
     public static KeyValuePair<string, string> GetDisplayNamePair(this Enum? enumValue)
     {
-        return new KeyValuePair<string,string>(enumValue!.ToString(), enumValue.GetType()
+        return new KeyValuePair<string, string>(enumValue!.ToString(), enumValue.GetType()
             .GetMember(enumValue.ToString())
             .First()
             .GetCustomAttribute<DisplayAttribute>()
             ?.GetName()!);
     }
 
-    public static Dictionary<string, string> GetDisplayNamePairs<T>() where T: Enum
+    public static Dictionary<string, string> GetDisplayNamePairs<T>() where T : Enum
     {
         var dict = new Dictionary<string, string>();
 
@@ -22,7 +22,7 @@ public static class EnumExtensions
         {
             var enumType = enumValue is T type ? type : default;
             var displayName = enumType.GetDisplayNamePair();
-            dict.Add(displayName.Key,displayName.Value);
+            dict.Add(displayName.Key, displayName.Value);
         }
 
         return dict;

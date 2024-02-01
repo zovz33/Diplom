@@ -1,58 +1,64 @@
-﻿using MediatR;
+﻿using Diplom.ASPNET.Application.Common.Exceptions;
+using Diplom.ASPNET.Application.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Diplom.ASPNET.Application.Common.Exceptions;
-using Diplom.ASPNET.Application.Interfaces;
-using Diplom.ASPNET.Application.Items.Auth.Login;
-using Diplom.ASPNET.Domain.Entities.Identity;
 
-namespace Diplom.ASPNET.Application.Items.Auth.Commands.Login
+namespace Diplom.ASPNET.Application.Items.Auth.Login;
+
+public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponseResult>
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponseResult>
+    private readonly IApplicationDbContext _dbContext;
+    private readonly SignInManager<Domain.Entities.Identity.User> _signInManager;
+    private readonly ITokenService _tokenService;
+    private readonly UserManager<Domain.Entities.Identity.User> _userManager;
+
+    public LoginCommandHandler(UserManager<Domain.Entities.Identity.User> userManager,
+        SignInManager<Domain.Entities.Identity.User> signInManager,
+        IApplicationDbContext dbContext, ITokenService tokenService)
     {
-        private readonly UserManager<Domain.Entities.Identity.User> _userManager;
-        private readonly ITokenService _tokenService;
-        private readonly IApplicationDbContext _dbContext;
+        _signInManager = signInManager;
+        _tokenService = tokenService;
+        _userManager = userManager;
+        _dbContext = dbContext;
+    }
 
-        public LoginCommandHandler(UserManager<Domain.Entities.Identity.User> userManager,
-            IApplicationDbContext dbContext, ITokenService tokenService)
+    public async Task<LoginResponseResult> Handle(LoginCommand request, CancellationToken cancellationToken)
+    {
+        // Получаем пользователя из базы данных
+        var user = await _userManager.FindByNameAsync(request.UserName);
+        // var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserName == request.UserName);
+        // Проверяем, существует ли пользователь
+        if (user == null) 
+            throw new UserNotFoundException(request.UserName);
+
+        // Проверяем пароль
+        var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+        if (!result.Succeeded)
+            throw new InvalidPasswordException(request.UserName);
+
+
+        // Проверяем, подтвержден ли email
+        // if (user.EmailConfirmed == false)
+        // {
+        //     throw new NotFoundException(nameof(User), "Почта не подтверждена");
+        // }
+
+        // Возвращаем результат
+        return new LoginResponseResult
         {
-            _userManager = userManager;
-            _tokenService = tokenService;
-            _dbContext = dbContext;
-        }
-
-        public async Task<LoginResponseResult> Handle(LoginCommand request, CancellationToken cancellationToken)
-        {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-            if (user == null)
-            {
-                throw new NotFoundException(nameof(User), request.Email);
-            }
-
-            if (!await _userManager.CheckPasswordAsync(user, request.PasswordHash))
-            {
-                throw new InvalidPasswordException(nameof(Domain.Entities.Identity.User), request.PasswordHash);
-            }
-
-            // Пользователь аутентифицирован? генерация токена:
-            var roleNames = await _userManager.GetRolesAsync(user);
-            var roles = roleNames.Select(roleName => new Role { Name = roleName }).ToList();
-
-            var accessToken = _tokenService.CreateToken(user, roles);
-
-            //user.RefreshToken = _tokenService.RefreshToken();
-            //user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7); // Время обновления токена
-
-            await _userManager.UpdateAsync(user);
-
-            return new LoginResponseResult
-            {
-                UserName = user.UserName,
-                Email = user.Email,
-                Token = accessToken,
-                //RefreshToken = user.RefreshToken
-            };
-        }
+            UserName = user.UserName,
+            Email = user.Email,
+            JWT = await _tokenService.CreateJWT(user)
+        };
     }
 }
+
+// Пользователь аутентифицирован? генерация токена:
+//var roleNames = await _userManager.GetRolesAsync(user);
+//var roles = roleNames.Select(roleName => new Role { Name = roleName }).ToList();
+
+//var accessToken = _tokenService.CreateToken(user, roles);
+
+//user.RefreshToken = _tokenService.RefreshToken();
+//user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7); // Время обновления токена

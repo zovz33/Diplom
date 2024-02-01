@@ -1,11 +1,8 @@
-using Microsoft.AspNetCore.Identity;
-using Diplom.ASPNET.Domain.Entities.Identity;
+﻿using Diplom.ASPNET.Domain.Entities.Identity;
 
-namespace Diplom.ASPNET.Application
+namespace Diplom.ASPNET.Application.Interfaces;
+
+public interface ITokenService
 {
-    public interface ITokenService
-    {
-        string CreateToken(User user, List<Role> role);
-        string RefreshToken();
-    }
+    Task<string> CreateJWT(User user);
 }

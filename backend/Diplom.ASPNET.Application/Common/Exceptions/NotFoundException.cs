@@ -1,9 +1,8 @@
-﻿using System;
+﻿namespace Diplom.ASPNET.Application.Common.Exceptions;
 
-namespace Diplom.ASPNET.Application.Common.Exceptions
+public class NotFoundException : Exception
 {
-    public class NotFoundException : Exception
+    public NotFoundException(string name, object key) : base($"Сущность {name} ({key}) не найдена.")
     {
-        public NotFoundException(string name, object key) : base($"Сущность \"{name}\" ({key}) не найдена.") { }
     }
 }

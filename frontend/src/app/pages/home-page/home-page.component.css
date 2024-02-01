@@ -1,0 +1,9 @@
+div{
+	color: yellow;
+	align-self: center;
+	margin: 50;
+}
+h1{
+	color: beige !important;
+	background-color: black !important;
+}

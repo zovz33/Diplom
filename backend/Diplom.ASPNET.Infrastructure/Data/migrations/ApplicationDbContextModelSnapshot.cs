@@ -115,9 +115,9 @@ namespace Diplom.ASPNET.Infrastructure.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
-                    b.Property<string>("Gender")
+                    b.Property<int?>("Gender")
                         .HasMaxLength(1)
-                        .HasColumnType("character varying(1)");
+                        .HasColumnType("integer");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(20)
@@ -336,7 +336,8 @@ namespace Diplom.ASPNET.Infrastructure.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(20)
@@ -348,15 +349,13 @@ namespace Diplom.ASPNET.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("InStock")
-                        .HasColumnType("boolean");
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("LastUpdatedBy")
                         .HasMaxLength(20)
@@ -364,8 +363,8 @@ namespace Diplom.ASPNET.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
@@ -379,6 +378,9 @@ namespace Diplom.ASPNET.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Products", (string)null);
@@ -427,6 +429,44 @@ namespace Diplom.ASPNET.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ProductReviews", (string)null);
+                });
+
+            modelBuilder.Entity("Diplom.ASPNET.Domain.Entities.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreatedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastUpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ShoppingCart", (string)null);
                 });
 
             modelBuilder.Entity("Diplom.ASPNET.Domain.Entities.Subscription", b =>
@@ -699,6 +739,25 @@ namespace Diplom.ASPNET.Infrastructure.Migrations
                 {
                     b.HasOne("Diplom.ASPNET.Domain.Entities.Product", "Product")
                         .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Diplom.ASPNET.Domain.Entities.Identity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Diplom.ASPNET.Domain.Entities.ShoppingCart", b =>
+                {
+                    b.HasOne("Diplom.ASPNET.Domain.Entities.Product", "Product")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

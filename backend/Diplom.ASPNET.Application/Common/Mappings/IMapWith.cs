@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
- 
 
-namespace Diplom.ASPNET.Application.Common.Mappings
+namespace Diplom.ASPNET.Application.Common.Mappings;
+
+public interface IMapWith<T>
 {
-    public interface IMapWith<T>
+    void Mapping(Profile profile)
     {
-        void Mapping(Profile profile) =>
-            profile.CreateMap(typeof(T), GetType());
+        profile.CreateMap(typeof(T), GetType());
     }
 }
