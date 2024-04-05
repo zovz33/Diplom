@@ -10,7 +10,8 @@ public class Log : BaseEntity
 
     public string LogLevel { get; set; }
     public string Message { get; set; }
-
+    public DateTime Timestamp { get; set; }
+    
     [ForeignKey("UserId")] public int UserId { get; set; }
 
     public virtual User User { get; set; }

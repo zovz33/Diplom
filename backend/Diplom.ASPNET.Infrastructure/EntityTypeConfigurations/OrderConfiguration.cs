@@ -11,7 +11,7 @@ public class OrderConfiguration : BaseEntityTypeConfiguration<Order>
     {
         base.Configure(builder);
 
-        builder.Property(user => user.Name).HasMaxLength(20);
+        builder.Property(user => user.Name).HasMaxLength(28).IsRequired();
         builder.Property(order => order.TotalAmount).HasColumnType("decimal(18, 0)").IsRequired();
     }
 }

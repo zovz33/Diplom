@@ -3,10 +3,12 @@ using System.Security.Claims;
 using System.Text;
 using Diplom.ASPNET.API.Middleware;
 using Diplom.ASPNET.Application;
+using Diplom.ASPNET.Application.Common.Interfaces;
 using Diplom.ASPNET.Application.Common.Mappings;
 using Diplom.ASPNET.Application.Interfaces;
 using Diplom.ASPNET.Domain.Entities.Identity;
 using Diplom.ASPNET.Infrastructure.Data;
+using Diplom.ASPNET.Infrastructure.Services;
 using Diplom.ASPNET.Infrastructure.Services.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -15,26 +17,40 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using Serilog;
+using Serilog.Events;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace Diplom.ASPNET.API;
 
 public class Program
 {
+    
     public static void Main(string[] args)
     {
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string logFilePath = Path.Combine(documentsPath, "KatyshaWebApiLog-.txt");
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)   // - Microsoft фильтр
+            .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+            .CreateLogger();
         var builder = WebApplication.CreateBuilder(args);
         try
         {
+            Log.Information("Запуск веб-api.");
             ConfigureServices(builder);
             var app = builder.Build();
-            EnsureDatabaseCreated(app);
-            //  UpdateDatabase(app);
+            EnsureDatabaseCreated(app); 
+            // UpdateDatabase(app);
             Configure(app);
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Ошибка в Program.cs :" + ex.Message);
+            Log.Fatal("Произошла ошибка, пока приложение  загружалось:" +ex.Message); 
+        }
+        finally
+        {
+            Log.CloseAndFlush();
         }
     }
 
@@ -42,13 +58,19 @@ public class Program
     {
         var connectionString = builder.Configuration.GetConnectionString("DbConnection")
                                ?? throw new InvalidOperationException("'DbConnection' not found.");
-
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(connectionString).UseLazyLoadingProxies());
-
+        
         builder.Services.AddScoped<ITokenService, TokenService>();
-
-
+        builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
+        builder.Services.AddHttpContextAccessor();
+        builder.Host.UseSerilog((context, services, configuration) => configuration
+            .ReadFrom.Configuration(context.Configuration)
+            .ReadFrom.Services(services)
+            .Enrich.FromLogContext()
+            .WriteTo.Console(), writeToProviders: true);
+ 
+        
         builder.Services.AddIdentity<User, Role>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
@@ -202,10 +224,23 @@ public class Program
         app.UseCustomExceptionHandler();
         app.UseHttpsRedirection();
         app.UseRouting();
-
         app.UseAuthentication();
         app.UseAuthorization();
-
+        app.UseSerilogRequestLogging(options =>
+        {
+            // Customize the message template
+            options.MessageTemplate = "Handled {RequestPath}";
+    
+            // Emit debug-level events instead of the defaults
+            options.GetLevel = (httpContext, elapsed, ex) => LogEventLevel.Debug;
+    
+            // Attach additional properties to the request completion event
+            options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+            {
+                diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
+                diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
+            };
+        });
         app.UseCors("AllowAll");
 
         app.MapControllers();
@@ -224,12 +259,12 @@ public class Program
             }
             catch (Exception ex)
             {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, $"Ошибка при создании базы данных: {ex.Message}");
+                // var logger = services.GetRequiredService<ILogger<Program>>();
+                Log.Fatal(ex, $"Ошибка при создании базы данных: {ex.Message}");
             }
         }
     }
-
+ 
     private static void UpdateDatabase(WebApplication app)
     {
         using (var scope = app.Services.CreateScope())
@@ -242,8 +277,8 @@ public class Program
             }
             catch (Exception ex)
             {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, $"Ошибка при миграции базы данных: {ex.Message}");
+                // var logger = services.GetRequiredService<ILogger<Program>>();
+                Log.Fatal(ex, $"Ошибка при миграции базы данных: {ex.Message}");
             }
         }
     }

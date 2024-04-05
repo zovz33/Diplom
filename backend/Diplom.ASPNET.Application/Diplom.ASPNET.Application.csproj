@@ -9,7 +9,6 @@
     <ItemGroup>
         <Folder Include="Common\Models\"/>
         <Folder Include="Common\Security\"/>
-        <Folder Include="Common\Interfaces\"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -17,16 +16,17 @@
         <PackageReference Include="FluentValidation" Version="11.9.0"/>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0"/>
         <PackageReference Include="MediatR" Version="12.2.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Serilog.Sinks.Postgresql.Alternative" Version="4.0.2" />
     </ItemGroup>
 
     <ItemGroup>
